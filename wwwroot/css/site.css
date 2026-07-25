@@ -1,31 +1,326 @@
+:root {
+    --pt-purple: #6c4fa1;
+    --pt-purple-dark: #4a3579;
+    --pt-purple-10: rgba(108, 79, 161, 0.10);
+    --pt-teal: #22b3a6;
+    --pt-gold: #f2b035;
+    --pt-ink: #262541;
+    --pt-bg: #f6f5fb;
+    --pt-text-muted: #5c5a72;
+    --pt-font-heading: "Poppins", "Segoe UI", sans-serif;
+    --pt-font-body: "Nunito Sans", "Segoe UI", sans-serif;
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    background: var(--pt-bg);
+    color: var(--pt-ink);
+    font-family: var(--pt-font-body);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
+.site-main {
+    flex: 1 0 auto;
+}
+
+.site-footer {
+    flex-shrink: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--pt-font-heading);
+    font-weight: 600;
+    color: var(--pt-ink);
+}
+
+p {
+    color: var(--pt-text-muted);
+}
+
+a {
+    color: var(--pt-purple);
+}
+
+    a:hover {
+        color: var(--pt-purple-dark);
+    }
+
+.btn {
+    border-radius: 999px;
+    font-weight: 700;
+    padding: 0.65rem 1.75rem;
+    font-family: var(--pt-font-heading);
+}
+
+.btn-primary, .btn-success {
+    background-color: var(--pt-purple);
+    border-color: var(--pt-purple);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(108, 79, 161, 0.28);
+}
+
+    .btn-primary:hover, .btn-primary:focus,
+    .btn-success:hover, .btn-success:focus {
+        background-color: var(--pt-purple-dark);
+        border-color: var(--pt-purple-dark);
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+.btn-lg {
+    padding: 0.85rem 2.25rem;
+    font-size: 1.05rem;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.15rem #fff, 0 0 0 0.3rem var(--pt-purple-10);
+}
+
+.pt-page {
+    padding: 3.5rem 0;
+}
+
+.pt-card {
+    background: #fff;
+    border-radius: 1.25rem;
+    padding: 2.5rem;
+    box-shadow: 0 12px 32px rgba(38, 37, 65, 0.08);
+    max-width: 46rem;
+    margin: 0 auto;
+}
+
+.pt-eyebrow {
+    display: inline-block;
+    font-family: var(--pt-font-heading);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pt-teal);
+    margin-bottom: 0.5rem;
+}
+
+.pt-hero {
+    text-align: center;
+    padding: 4.5rem 1rem 3.5rem;
+}
+
+    .pt-hero .display-4 {
+        font-family: var(--pt-font-heading);
+        font-weight: 700;
+    }
+
+.pt-question {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1.5rem 1.75rem;
+    box-shadow: 0 6px 18px rgba(38, 37, 65, 0.06);
+    margin-bottom: 1.5rem;
+}
+
+    .pt-question h5 {
+        font-family: var(--pt-font-body);
+        font-weight: 700;
+        color: var(--pt-ink);
+        margin-bottom: 0.25rem;
+    }
+
+    .pt-question hr {
+        display: none;
+    }
+
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+    color: var(--bs-secondary-color);
+    text-align: end;
 }
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    text-align: start;
+}
+
+/* ===== Circle rating scale (7-point) ===== */
+.pt-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 0 0.25rem;
+}
+
+.pt-scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.pt-scale-cap-agree {
+    color: var(--pt-teal);
+}
+
+.pt-scale-cap-disagree {
+    color: var(--pt-purple);
+}
+
+.pt-scale-track {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: clamp(0.15rem, 1.5vw, 1.1rem);
+    padding: 0.25rem 0 0.5rem;
+    width: 100%;
+}
+
+.pt-circle {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+    .pt-circle input {
+        position: absolute;
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+    }
+
+/* fixed box, same size for every circle — the dot is centered inside it with absolute positioning so size differences can never throw off alignment */
+.pt-circle-box {
+    position: relative;
+    width: clamp(22px, 6vw, 44px);
+    height: clamp(22px, 6vw, 44px);
+    flex-shrink: 0;
+}
+
+.pt-circle-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2.5px solid var(--dot-color, #c7c5d6);
+    background: #fff;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.pt-circle-caption {
+    font-size: 0.7rem;
+    color: var(--pt-text-muted);
+    text-align: center;
+    max-width: 5.5rem;
+    min-height: 1.4em;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.pt-circle:hover .pt-circle-caption,
+.pt-circle input:checked ~ .pt-circle-caption {
+    opacity: 1;
+}
+
+.pt-circle input:checked ~ .pt-circle-box .pt-circle-dot {
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.pt-circle input:focus-visible ~ .pt-circle-box .pt-circle-dot {
+    box-shadow: 0 0 0 4px var(--pt-purple-10);
+}
+
+.pt-circle--g3 input:checked ~ .pt-circle-box .pt-circle-dot {
+    background: var(--pt-teal);
+}
+
+.pt-circle--g2 input:checked ~ .pt-circle-box .pt-circle-dot {
+    background: var(--pt-teal);
+}
+
+.pt-circle--g1 input:checked ~ .pt-circle-box .pt-circle-dot {
+    background: var(--pt-teal);
+}
+
+.pt-circle--n input:checked ~ .pt-circle-box .pt-circle-dot {
+    background: #9491a8;
+}
+
+.pt-circle--p1 input:checked ~ .pt-circle-box .pt-circle-dot {
+    background: var(--pt-purple);
+}
+
+.pt-circle--p2 input:checked ~ .pt-circle-box .pt-circle-dot {
+    background: var(--pt-purple);
+}
+
+.pt-circle--p3 input:checked ~ .pt-circle-box .pt-circle-dot {
+    background: var(--pt-purple);
+}
+
+.pt-circle--g3 .pt-circle-dot {
+    width: clamp(22px, 6vw, 44px);
+    height: clamp(22px, 6vw, 44px);
+    --dot-color: var(--pt-teal);
+}
+
+.pt-circle--g2 .pt-circle-dot {
+    width: clamp(18px, 4.6vw, 34px);
+    height: clamp(18px, 4.6vw, 34px);
+    --dot-color: var(--pt-teal);
+}
+
+.pt-circle--g1 .pt-circle-dot {
+    width: clamp(14px, 3.3vw, 24px);
+    height: clamp(14px, 3.3vw, 24px);
+    --dot-color: var(--pt-teal);
+}
+
+.pt-circle--n .pt-circle-dot {
+    width: clamp(13px, 3vw, 22px);
+    height: clamp(13px, 3vw, 22px);
+    --dot-color: #9491a8;
+}
+
+.pt-circle--p1 .pt-circle-dot {
+    width: clamp(14px, 3.3vw, 24px);
+    height: clamp(14px, 3.3vw, 24px);
+    --dot-color: var(--pt-purple);
+}
+
+.pt-circle--p2 .pt-circle-dot {
+    width: clamp(18px, 4.6vw, 34px);
+    height: clamp(18px, 4.6vw, 34px);
+    --dot-color: var(--pt-purple);
+}
+
+.pt-circle--p3 .pt-circle-dot {
+    width: clamp(22px, 6vw, 44px);
+    height: clamp(22px, 6vw, 44px);
+    --dot-color: var(--pt-purple);
+}
+
+@media (max-width: 575.98px) {
+    .pt-scale-track {
+        gap: 0.5rem;
+    }
 }

@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.css" />
+  </ItemGroup>
+
 </Project>

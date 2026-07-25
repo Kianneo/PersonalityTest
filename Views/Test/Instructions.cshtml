@@ -2,22 +2,20 @@
     ViewData["Title"] = "Instructions";
 }
 
-<div class="container mt-5">
+<div class="pt-page">
+    <div class="pt-card">
+        <span class="pt-eyebrow">Before you begin</span>
+        <h2>Instructions</h2>
 
-    <h2>Instructions</h2>
+        <ul>
+            <li>Read each statement carefully.</li>
+            <li>Select the answer that best describes you.</li>
+            <li>Answer honestly.</li>
+            <li>There are 4 questions for now.</li>
+        </ul>
 
-    <hr />
-
-    <ul>
-        <li>Read each statement carefully.</li>
-        <li>Select the answer that best describes you.</li>
-        <li>Answer honestly.</li>
-        <li>There are 4 questions for now.</li>
-    </ul>
-
-    <a asp-action="Questions"
-       class="btn btn-success">
-        Begin Test
-    </a>
-
+        <a asp-action="Questions" class="btn btn-primary">
+            Begin Test
+        </a>
+    </div>
 </div>

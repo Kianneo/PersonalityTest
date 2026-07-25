@@ -4,69 +4,85 @@
     ViewData["Title"] = "Questions";
 }
 
-<div class="container mt-5">
+<div class="pt-page">
+    <div class="pt-card" style="max-width: 42rem;">
 
-    <h2>Personality Test</h2>
+        <span class="pt-eyebrow">Personality Test</span>
+        <h2 class="mb-4">Answer Honestly</h2>
 
-    <form asp-action="Questions" method="post">
+        <form asp-action="Questions" method="post">
 
-        @for (int i = 0; i < Model.Questions.Count; i++)
-        {
-                <div class="mb-4">
+            @for (int i = 0; i < Model.Questions.Count; i++)
+            {
+                    <div class="pt-question">
 
-                    <h5>@Model.Questions[i].Text</h5>
+                        <h5>@Model.Questions[i].Text</h5>
 
-                    <input type="hidden" asp-for="Questions[i].Id" />
-                    <input type="hidden" asp-for="Questions[i].Text" />
-                    <input type="hidden" asp-for="Questions[i].Category" />
+                        <input type="hidden" asp-for="Questions[i].Id" />
+                        <input type="hidden" asp-for="Questions[i].Text" />
+                        <input type="hidden" asp-for="Questions[i].Category" />
 
-                    <div>
+                        <div class="pt-scale">
 
-                        <label>
-                            <input type="radio"
-                                   asp-for="Answers[i]"
-                                   value="3" required />
-                            Strongly Agree
-                        </label>
+                            <div class="pt-scale-labels">
+                                <span class="pt-scale-cap-agree">Agree</span>
+                                <span class="pt-scale-cap-disagree">Disagree</span>
+                            </div>
 
-                        <br />
+                            <div class="pt-scale-track">
+                                <label class="pt-circle pt-circle--g3">
+                                    <input type="radio" asp-for="Answers[i]" value="3" required />
+                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
+                                    <span class="pt-circle-caption">Strongly Agree</span>
+                                </label>
 
-                        <label>
-                            <input type="radio"
-                                   asp-for="Answers[i]"
-                                   value="2" />
-                            Agree
-                        </label>
+                                <label class="pt-circle pt-circle--g2">
+                                    <input type="radio" asp-for="Answers[i]" value="2" />
+                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
+                                    <span class="pt-circle-caption">Agree</span>
+                                </label>
 
-                        <br />
+                                <label class="pt-circle pt-circle--g1">
+                                    <input type="radio" asp-for="Answers[i]" value="1" />
+                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
+                                    <span class="pt-circle-caption">Slightly Agree</span>
+                                </label>
 
-                        <label>
-                            <input type="radio"
-                                   asp-for="Answers[i]"
-                                   value="1" />
-                            Neutral
-                        </label>
+                                <label class="pt-circle pt-circle--n">
+                                    <input type="radio" asp-for="Answers[i]" value="0" />
+                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
+                                    <span class="pt-circle-caption">Neutral</span>
+                                </label>
 
-                        <br />
+                                <label class="pt-circle pt-circle--p1">
+                                    <input type="radio" asp-for="Answers[i]" value="-1" />
+                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
+                                    <span class="pt-circle-caption">Slightly Disagree</span>
+                                </label>
 
-                        <label>
-                            <input type="radio"
-                                   asp-for="Answers[i]"
-                                   value="0" />
-                            Disagree
-                        </label>
+                                <label class="pt-circle pt-circle--p2">
+                                    <input type="radio" asp-for="Answers[i]" value="-2" />
+                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
+                                    <span class="pt-circle-caption">Disagree</span>
+                                </label>
+
+                                <label class="pt-circle pt-circle--p3">
+                                    <input type="radio" asp-for="Answers[i]" value="-3" />
+                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
+                                    <span class="pt-circle-caption">Strongly Disagree</span>
+                                </label>
+                            </div>
+
+                        </div>
 
                     </div>
+            }
 
-                </div>
+            <button class="btn btn-primary mt-2">
+                Submit
+            </button>
 
-                <hr />
-        }
+        </form>
 
-        <button class="btn btn-primary">
-            Submit
-        </button>
-
-    </form>
-
+    </div>
 </div>

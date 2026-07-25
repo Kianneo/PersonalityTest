@@ -30,7 +30,7 @@ namespace PersonalityTest.Controllers
             var model = new TestViewModel
             {
                 Questions = questions,
-                Answers = Enumerable.Repeat(0, questions.Count).ToList()
+                Answers = Enumerable.Repeat((int?)null, questions.Count).ToList()
             };
 
             return View(model);
@@ -39,11 +39,11 @@ namespace PersonalityTest.Controllers
         [HttpPost]
         public IActionResult Questions(TestViewModel model)
         {
-            int total = model.Answers.Sum();
+            int total = model.Answers.Sum(a => a ?? 0);
 
             PersonalityResult result;
 
-            if (total >= 6)
+            if (total >= 0)
             {
                 result = new PersonalityResult
                 {

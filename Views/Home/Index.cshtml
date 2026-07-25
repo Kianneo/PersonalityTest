@@ -2,16 +2,16 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center mt-5">
-    <h1 class="display-4">Personality Test</h1>
+<div class="pt-hero">
+    <span class="pt-eyebrow">Free · 2 minute test</span>
+    <h1 class="display-4">Discover Your Personality Type</h1>
 
-    <p class="lead">
-        Discover your personality type by answering a few questions.
+    <p class="lead mx-auto" style="max-width: 34rem;">
+        Answer a few honest questions and get a clear, easy-to-understand
+        picture of who you are and how you see the world.
     </p>
 
-    <a asp-controller="Test"
-       asp-action="Instructions"
-       class="btn btn-primary btn-lg">
+    <a asp-controller="Test" asp-action="Instructions" class="btn btn-primary btn-lg">
         Start Test
     </a>
 </div>
