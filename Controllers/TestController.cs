@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PersonalityTest.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 
 namespace PersonalityTest.Controllers
 {
@@ -77,42 +78,86 @@ namespace PersonalityTest.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult Result()
+        {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login", "Account");
+
+            var json = HttpContext.Session.GetString("LastResult");
+            if (string.IsNullOrEmpty(json))
+                return RedirectToAction("Instructions"); // hasn't taken the test yet
+
+            var result = JsonSerializer.Deserialize<PersonalityResult>(json);
+            return View("Result", result);
+        }
+
         [HttpPost]
         public IActionResult Questions(TestViewModel model)
         {
-            // Protect page: Redirect to Login if session is not active
             if (!IsLoggedIn())
-            {
                 return RedirectToAction("Login", "Account");
-            }
 
-            // Simple scoring logic based on total score
-            int total = model.Answers != null ? model.Answers.Sum(a => a ?? 0) : 0;
+            // Sum answers per category (each answer is -3..3, shift to 0..6 so bars never go negative)
+            var totals = model.Questions
+                .Select((q, i) => new { q.Category, Value = (model.Answers[i] ?? 0) + 3 })
+                .GroupBy(x => x.Category)
+                .ToDictionary(g => g.Key, g => g.Sum(x => x.Value));
 
-            PersonalityResult result;
+            int e = totals.GetValueOrDefault("E"), i = totals.GetValueOrDefault("I");
+            int n = totals.GetValueOrDefault("N"), s = totals.GetValueOrDefault("S");
+            int t = totals.GetValueOrDefault("T"), f = totals.GetValueOrDefault("F");
+            int j = totals.GetValueOrDefault("J"), p = totals.GetValueOrDefault("P");
 
-            // Rating scale: 1 (Disagree) to 5 (Agree) per question across 16 questions
-            // Max score = 80, Min score = 16
-            if (total >= 48)
+            string type =
+                (e >= i ? "E" : "I") +
+                (n >= s ? "N" : "S") +
+                (t >= f ? "T" : "F") +
+                (j >= p ? "J" : "P");
+
+            var (title, desc) = TypeLibrary[type];
+
+            int Pct(int a, int b) => a + b == 0 ? 50 : (int)Math.Round(a * 100.0 / (a + b));
+
+            var result = new PersonalityResult
             {
-                result = new PersonalityResult
-                {
-                    Type = "ENTJ",
-                    Title = "Commander",
-                    Description = "Bold, imaginative, and strong-willed leaders, always finding a way – or making one."
-                };
-            }
-            else
-            {
-                result = new PersonalityResult
-                {
-                    Type = "INFP",
-                    Title = "Mediator",
-                    Description = "Poetic, kind, and altruistic people, always eager to help a good cause."
-                };
-            }
+                Type = type,
+                Title = title,
+                Description = desc,
+                PctE = Pct(e, i),
+                PctI = 100 - Pct(e, i),
+                PctN = Pct(n, s),
+                PctS = 100 - Pct(n, s),
+                PctT = Pct(t, f),
+                PctF = 100 - Pct(t, f),
+                PctJ = Pct(j, p),
+                PctP = 100 - Pct(j, p)
+            };
+
+            HttpContext.Session.SetString("LastResult", JsonSerializer.Serialize(result));
 
             return View("Result", result);
         }
+
+        // Add near top of class or in a separate static file
+        private static readonly Dictionary<string, (string Title, string Description)> TypeLibrary = new()
+        {
+            ["ISTJ"] = ("Logistician", "Practical and fact-minded, reliable and dutiful in getting things done right."),
+            ["ISFJ"] = ("Defender", "Warm and dedicated, always ready to protect the people they care about."),
+            ["INFJ"] = ("Advocate", "Quietly idealistic, insightful, and driven by a deep sense of purpose."),
+            ["INTJ"] = ("Architect", "Strategic and independent thinkers who love turning ideas into plans."),
+            ["ISTP"] = ("Virtuoso", "Hands-on problem-solvers who enjoy figuring out how things work."),
+            ["ISFP"] = ("Adventurer", "Gentle, artistic, and open, exploring life through experience and feeling."),
+            ["INFP"] = ("Mediator", "Poetic and empathetic idealists guided by their own values."),
+            ["INTP"] = ("Logician", "Curious and analytical, always chasing the logic behind everything."),
+            ["ESTP"] = ("Entrepreneur", "Energetic and perceptive, thriving on action and taking risks."),
+            ["ESFP"] = ("Entertainer", "Spontaneous and fun-loving, bringing energy to everyone around them."),
+            ["ENFP"] = ("Campaigner", "Enthusiastic and imaginative, always finding new possibilities."),
+            ["ENTP"] = ("Debater", "Sharp and inventive, loves a good intellectual challenge."),
+            ["ESTJ"] = ("Executive", "Organized and decisive, natural at managing people and projects."),
+            ["ESFJ"] = ("Consul", "Caring and social, focused on keeping everyone supported and connected."),
+            ["ENFJ"] = ("Protagonist", "Charismatic and inspiring, motivated by helping others grow."),
+            ["ENTJ"] = ("Commander", "Bold and strategic leaders, always finding a way to reach the goal.")
+        };
     }
 }

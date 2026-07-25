@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,14 +18,12 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-lg site-navbar sticky-top">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
-                    <span class="brand-mark" aria-hidden="true">
-                        <span class="brand-dot dot-1"></span>
-                        <span class="brand-dot dot-2"></span>
-                        <span class="brand-dot dot-3"></span>
-                    </span>
-                    <span class="brand-text">Personality<strong>Test</strong></span>
-                </a>
+				<a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+					<img src="~/images/logo.png" alt="Logo" class="brand-logo-img" />
+					<span class="brand-text">
+						16<strong>Personalities</strong>
+					</span>
+				</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
                         aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,16 +33,28 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Test" asp-action="Instructions">Take the Test</a>
-                        </li>
-                        <li class="nav-item">
+						@if (!string.IsNullOrEmpty(Context.Session.GetString("UserLoggedIn")))
+						{
+						<li class="nav-item">
+							<a class="nav-link" asp-area="" asp-controller="Test" asp-action="Result">Results</a>
+						</li>
+						}
+						<li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                            <a class="btn btn-nav-cta" asp-area="" asp-controller="Test" asp-action="Instructions">Start Test</a>
-                        </li>
-                    </ul>
+						<li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+							<a class="btn btn-primary" asp-area="" asp-controller="Test" asp-action="Instructions">Start Test</a>
+						</li>
+						@if (!string.IsNullOrEmpty(Context.Session.GetString("UserLoggedIn")))
+						{
+						<li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+						<a class="btn btn-outline-purple" asp-area="" asp-controller="Account" asp-action="Logout"
+						   onclick="return confirm('Are you sure you want to log out?');">
+							Logout
+						</a>
+					</li>
+						}
+					</ul>
                 </div>
             </div>
         </nav>
@@ -53,32 +64,13 @@
         @RenderBody()
     </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <span class="brand-text light">Personality<strong>Test</strong></span>
-                    <p>Discover who you are, one honest question at a time.</p>
-                </div>
-                <div class="footer-col">
-                    <h6>Explore</h6>
-                    <ul>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-area="" asp-controller="Test" asp-action="Instructions">Take the Test</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h6>Company</h6>
-                    <ul>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <span>&copy; @DateTime.Now.Year PersonalityTest. All rights reserved.</span>
-            </div>
-        </div>
-    </footer>
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-bottom">
+				<span>&copy; @DateTime.Now.Year PersonalityTest. Daygon - Karunungan - Llorente - Manzano. All rights reserved.</span>
+			</div>
+		</div>
+	</footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

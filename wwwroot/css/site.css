@@ -319,6 +319,57 @@ a {
     --dot-color: var(--pt-purple);
 }
 
+.pt-trait-bar {
+    height: 10px;
+    border-radius: 6px;
+    background: #e5e0f5; /* right-side track color */
+    overflow: hidden;
+}
+.pt-trait-fill {
+    height: 100%;
+    background: var(--pt-purple, #6c4bd6); /* left-side fill color */
+    border-radius: 6px 0 0 6px;
+}
+
+.site-navbar {
+    background: #fff;
+    padding: 0.75rem 0;
+}
+
+.brand-logo-img {
+    height: 36px;
+    width: auto;
+    margin-right: 0.5rem;
+}
+
+.brand-text {
+    font-family: var(--pt-font-heading);
+    font-size: 1.3rem;
+    color: var(--pt-ink);
+}
+
+.brand-text strong {
+    font-weight: 700;
+}
+
+.pt-result-img {
+    max-width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 12px 32px rgba(38, 37, 65, 0.12);
+}
+
+.btn-outline-purple {
+    background: transparent;
+    border: 2px solid var(--pt-purple);
+    color: var(--pt-purple);
+    box-shadow: none;
+}
+
+.btn-outline-purple:hover, .btn-outline-purple:focus {
+    background: var(--pt-purple);
+    color: #fff;
+}
+
 @media (max-width: 575.98px) {
     .pt-scale-track {
         gap: 0.5rem;
