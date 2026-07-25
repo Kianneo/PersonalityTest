@@ -10,4 +10,8 @@
     <Content Include="Views\Shared\_Layout.css" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>
