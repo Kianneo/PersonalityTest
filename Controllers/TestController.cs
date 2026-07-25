@@ -52,7 +52,7 @@ namespace PersonalityTest.Controllers
             {
                 Questions = questions,
                 // Creates a list of 16 zeros matching the 16 questions
-                Answers = Enumerable.Repeat(0, questions.Count).ToList()
+                Answers = Enumerable.Repeat((int?)null, questions.Count).ToList()
             };
 
             return View(model);
@@ -62,7 +62,7 @@ namespace PersonalityTest.Controllers
         public IActionResult Questions(TestViewModel model)
         {
             // Simple scoring logic based on total score
-            int total = model.Answers != null ? model.Answers.Sum() : 0;
+            int total = model.Answers != null ? model.Answers.Sum(a => a ?? 0) : 0;
 
             PersonalityResult result;
 
