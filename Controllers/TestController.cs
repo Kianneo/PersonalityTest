@@ -16,7 +16,7 @@ namespace PersonalityTest.Controllers
                 new Question { Id = 1, Category = "E", Text = "You regularly make new friends and feel energized in large groups." },
                 new Question { Id = 2, Category = "I", Text = "You prefer quiet, low-key activities over lively group events." },
                 new Question { Id = 3, Category = "E", Text = "You usually initiate conversations when meeting someone new." },
-                new Question { Id = 4, Category = "I", Text = "You feel drained if you spend too much time interacting with crowds." },
+                new Question { Id = 4, Category = "I", Text = "You feel drained if you spend too much time interacting with crowds" },
 
                 // Intuition (N) vs Sensing (S)
                 new Question { Id = 5, Category = "N", Text = "You frequently spend time exploring abstract or theoretical ideas." },
