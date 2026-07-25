@@ -1,72 +1,18 @@
 ﻿@model PersonalityTest.Models.TestViewModel
 
-@{
-    ViewData["Title"] = "Questions";
-}
+<h2>Personality Test</h2>
 
-<div class="container mt-5">
-
-    <h2>Personality Test</h2>
-
-    <form asp-action="Questions" method="post">
-
-        @for (int i = 0; i < Model.Questions.Count; i++)
-        {
-                <div class="mb-4">
-
-                    <h5>@Model.Questions[i].Text</h5>
-
-                    <input type="hidden" asp-for="Questions[i].Id" />
-                    <input type="hidden" asp-for="Questions[i].Text" />
-                    <input type="hidden" asp-for="Questions[i].Category" />
-
-                    <div>
-
-                        <label>
-                            <input type="radio"
-                                   asp-for="Answers[i]"
-                                   value="3" required />
-                            Strongly Agree
-                        </label>
-
-                        <br />
-
-                        <label>
-                            <input type="radio"
-                                   asp-for="Answers[i]"
-                                   value="2" />
-                            Agree
-                        </label>
-
-                        <br />
-
-                        <label>
-                            <input type="radio"
-                                   asp-for="Answers[i]"
-                                   value="1" />
-                            Neutral
-                        </label>
-
-                        <br />
-
-                        <label>
-                            <input type="radio"
-                                   asp-for="Answers[i]"
-                                   value="0" />
-                            Disagree
-                        </label>
-
-                    </div>
-
-                </div>
-
-                <hr />
-        }
-
-        <button class="btn btn-primary">
-            Submit
-        </button>
-
-    </form>
-
-</div>
+<form asp-action="Questions" method="post">
+    @for (int i = 0; i < Model.Questions.Count; i++)
+    {
+        <div>
+            <p>@Model.Questions[i].Text</p>
+            <select asp-for="Answers[i]">
+                <option value="0">Disagree</option>
+                <option value="1">Neutral</option>
+                <option value="2">Agree</option>
+            </select>
+        </div>
+    }
+    <button type="submit">Submit</button>
+</form>

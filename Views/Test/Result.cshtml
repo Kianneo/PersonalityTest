@@ -1,25 +1,6 @@
 ﻿@model PersonalityTest.Models.PersonalityResult
 
-@{
-    ViewData["Title"] = "Result";
-}
-
-<div class="container mt-5 text-center">
-
-    <h1>Your Personality Type</h1>
-
-    <hr />
-
-    <h2>@Model.Type</h2>
-
-    <h3>@Model.Title</h3>
-
-    <p>@Model.Description</p>
-
-    <a asp-controller="Home"
-       asp-action="Index"
-       class="btn btn-success">
-        Take Test Again
-    </a>
-
-</div>
+<h2>Your Personality Type: @Model.Type</h2>
+<h3>@Model.Title</h3>
+<p>@Model.Description</p>
+<a asp-action="Instructions">Take Again</a>

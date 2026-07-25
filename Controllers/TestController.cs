@@ -19,12 +19,18 @@ namespace PersonalityTest.Controllers
 
         public IActionResult Instructions()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("User")))
+                return RedirectToAction("Login", "Account");
+
             return View();
         }
 
         [HttpGet]
         public IActionResult Questions()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("User")))
+                return RedirectToAction("Login", "Account");
+
             var questions = GetQuestions();
 
             var model = new TestViewModel
