@@ -181,9 +181,9 @@ a {
 .pt-scale-track {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: nowrap;
-    gap: clamp(0.15rem, 1.5vw, 1.1rem);
+    gap: clamp(0.75rem, 3vw, 2rem);
     padding: 0.25rem 0 0.5rem;
     width: 100%;
 }
@@ -209,8 +209,8 @@ a {
 /* fixed box, same size for every circle — the dot is centered inside it with absolute positioning so size differences can never throw off alignment */
 .pt-circle-box {
     position: relative;
-    width: clamp(22px, 6vw, 44px);
-    height: clamp(22px, 6vw, 44px);
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
 }
 
@@ -278,44 +278,44 @@ a {
 }
 
 .pt-circle--g3 .pt-circle-dot {
-    width: clamp(22px, 6vw, 44px);
-    height: clamp(22px, 6vw, 44px);
+    width: 44px;
+    height: 44px;
     --dot-color: var(--pt-teal);
 }
 
 .pt-circle--g2 .pt-circle-dot {
-    width: clamp(18px, 4.6vw, 34px);
-    height: clamp(18px, 4.6vw, 34px);
+    width: 34px;
+    height: 34px;
     --dot-color: var(--pt-teal);
 }
 
 .pt-circle--g1 .pt-circle-dot {
-    width: clamp(14px, 3.3vw, 24px);
-    height: clamp(14px, 3.3vw, 24px);
+    width: 24px;
+    height: 24px;
     --dot-color: var(--pt-teal);
 }
 
 .pt-circle--n .pt-circle-dot {
-    width: clamp(13px, 3vw, 22px);
-    height: clamp(13px, 3vw, 22px);
+    width: 22px;
+    height: 22px;
     --dot-color: #9491a8;
 }
 
 .pt-circle--p1 .pt-circle-dot {
-    width: clamp(14px, 3.3vw, 24px);
-    height: clamp(14px, 3.3vw, 24px);
+    width: 24px;
+    height: 24px;
     --dot-color: var(--pt-purple);
 }
 
 .pt-circle--p2 .pt-circle-dot {
-    width: clamp(18px, 4.6vw, 34px);
-    height: clamp(18px, 4.6vw, 34px);
+    width: 34px;
+    height: 34px;
     --dot-color: var(--pt-purple);
 }
 
 .pt-circle--p3 .pt-circle-dot {
-    width: clamp(22px, 6vw, 44px);
-    height: clamp(22px, 6vw, 44px);
+    width: 44px;
+    height: 44px;
     --dot-color: var(--pt-purple);
 }
 
