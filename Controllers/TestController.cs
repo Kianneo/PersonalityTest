@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http; // Added for Session support
+using Microsoft.AspNetCore.Mvc;
 using PersonalityTest.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,12 @@ namespace PersonalityTest.Controllers
 {
     public class TestController : Controller
     {
+        // Helper method to check if user is logged in
+        private bool IsLoggedIn()
+        {
+            return !string.IsNullOrEmpty(HttpContext.Session.GetString("UserLoggedIn"));
+        }
+
         // 1. Updated with all 16 questions organized by category
         private List<Question> GetQuestions()
         {
@@ -40,12 +47,24 @@ namespace PersonalityTest.Controllers
 
         public IActionResult Instructions()
         {
+            // Protect page: Redirect to Login if session is not active
+            if (!IsLoggedIn())
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             return View();
         }
 
         [HttpGet]
         public IActionResult Questions()
         {
+            // Protect page: Redirect to Login if session is not active
+            if (!IsLoggedIn())
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             var questions = GetQuestions();
 
             var model = new TestViewModel
@@ -61,6 +80,12 @@ namespace PersonalityTest.Controllers
         [HttpPost]
         public IActionResult Questions(TestViewModel model)
         {
+            // Protect page: Redirect to Login if session is not active
+            if (!IsLoggedIn())
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             // Simple scoring logic based on total score
             int total = model.Answers != null ? model.Answers.Sum(a => a ?? 0) : 0;
 
