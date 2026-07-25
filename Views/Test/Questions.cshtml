@@ -1,88 +1,39 @@
 ﻿@model PersonalityTest.Models.TestViewModel
 
-@{
-    ViewData["Title"] = "Questions";
-}
+<div class="container mt-4">
+    <h2 class="mb-4">16 Personalities Test</h2>
 
-<div class="pt-page">
-    <div class="pt-card" style="max-width: 42rem;">
+    <form asp-controller="Test" asp-action="Questions" method="post">
+        @for (int i = 0; i < Model.Questions.Count; i++)
+        {
+            <input type="hidden" asp-for="Questions[i].Id" />
+            <input type="hidden" asp-for="Questions[i].Text" />
+            <input type="hidden" asp-for="Questions[i].Category" />
 
-        <span class="pt-eyebrow">Personality Test</span>
-        <h2 class="mb-4">Answer Honestly</h2>
+            <div class="card mb-3 p-3 shadow-sm">
+                <h5>Question @(i + 1)</h5>
+                <p class="lead">@Model.Questions[i].Text</p>
 
-        <form asp-action="Questions" method="post">
-
-            @for (int i = 0; i < Model.Questions.Count; i++)
-            {
-                    <div class="pt-question">
-
-                        <h5>@Model.Questions[i].Text</h5>
-
-                        <input type="hidden" asp-for="Questions[i].Id" />
-                        <input type="hidden" asp-for="Questions[i].Text" />
-                        <input type="hidden" asp-for="Questions[i].Category" />
-
-                        <div class="pt-scale">
-
-                            <div class="pt-scale-labels">
-                                <span class="pt-scale-cap-agree">Agree</span>
-                                <span class="pt-scale-cap-disagree">Disagree</span>
+                <div class="d-flex justify-content-between align-items-center bg-light p-3 rounded">
+                    <span class="text-danger fw-bold">Disagree</span>
+                    <div>
+                        @for (int val = 1; val <= 5; val++)
+                        {
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       asp-for="Answers[i]"
+                                       value="@val"
+                                       required />
+                                <label class="form-check-label">@val</label>
                             </div>
-
-                            <div class="pt-scale-track">
-                                <label class="pt-circle pt-circle--g3">
-                                    <input type="radio" asp-for="Answers[i]" value="3" required />
-                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
-                                    <span class="pt-circle-caption">Strongly Agree</span>
-                                </label>
-
-                                <label class="pt-circle pt-circle--g2">
-                                    <input type="radio" asp-for="Answers[i]" value="2" />
-                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
-                                    <span class="pt-circle-caption">Agree</span>
-                                </label>
-
-                                <label class="pt-circle pt-circle--g1">
-                                    <input type="radio" asp-for="Answers[i]" value="1" />
-                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
-                                    <span class="pt-circle-caption">Slightly Agree</span>
-                                </label>
-
-                                <label class="pt-circle pt-circle--n">
-                                    <input type="radio" asp-for="Answers[i]" value="0" />
-                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
-                                    <span class="pt-circle-caption">Neutral</span>
-                                </label>
-
-                                <label class="pt-circle pt-circle--p1">
-                                    <input type="radio" asp-for="Answers[i]" value="-1" />
-                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
-                                    <span class="pt-circle-caption">Slightly Disagree</span>
-                                </label>
-
-                                <label class="pt-circle pt-circle--p2">
-                                    <input type="radio" asp-for="Answers[i]" value="-2" />
-                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
-                                    <span class="pt-circle-caption">Disagree</span>
-                                </label>
-
-                                <label class="pt-circle pt-circle--p3">
-                                    <input type="radio" asp-for="Answers[i]" value="-3" />
-                                    <span class="pt-circle-box"><span class="pt-circle-dot"></span></span>
-                                    <span class="pt-circle-caption">Strongly Disagree</span>
-                                </label>
-                            </div>
-
-                        </div>
-
+                        }
                     </div>
-            }
+                    <span class="text-success fw-bold">Agree</span>
+                </div>
+            </div>
+        }
 
-            <button class="btn btn-primary mt-2">
-                Submit
-            </button>
-
-        </form>
-
-    </div>
+        <button type="submit" class="btn btn-primary btn-lg mt-3 mb-5">Submit Answers</button>
+    </form>
 </div>
