@@ -6,6 +6,6 @@ namespace PersonalityTest.Models
     {
         public List<Question> Questions { get; set; } = new();
 
-        public List<int> Answers { get; set; } = new();
+        public List<int?> Answers { get; set; } = new();
     }
 }

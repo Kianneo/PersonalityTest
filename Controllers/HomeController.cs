@@ -8,5 +8,10 @@ namespace PersonalityTest.Controllers
         {
             return View();
         }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
     }
 }
