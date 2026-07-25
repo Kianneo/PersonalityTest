@@ -1,19 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersonalityTest.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PersonalityTest.Controllers
 {
     public class TestController : Controller
     {
+        // 1. Updated with all 16 questions organized by category
         private List<Question> GetQuestions()
         {
             return new List<Question>
             {
-                new Question { Id = 1, Text = "I enjoy meeting new people.", Category = "E" },
-                new Question { Id = 2, Text = "I prefer quiet places.", Category = "I" },
-                new Question { Id = 3, Text = "I make decisions using logic.", Category = "T" },
-                new Question { Id = 4, Text = "I rely on emotions.", Category = "F" }
+                // Extraversion (E) vs Introversion (I)
+                new Question { Id = 1, Category = "E", Text = "You regularly make new friends and feel energized in large groups." },
+                new Question { Id = 2, Category = "I", Text = "You prefer quiet, low-key activities over lively group events." },
+                new Question { Id = 3, Category = "E", Text = "You usually initiate conversations when meeting someone new." },
+                new Question { Id = 4, Category = "I", Text = "You feel drained if you spend too much time interacting with crowds. " },
+
+                // Intuition (N) vs Sensing (S)
+                new Question { Id = 5, Category = "N", Text = "You frequently spend time exploring abstract or theoretical ideas." },
+                new Question { Id = 6, Category = "S", Text = "You focus more on real-world facts and concrete details." },
+                new Question { Id = 7, Category = "N", Text = "You prefer looking at the big picture rather than step-by-step details." },
+                new Question { Id = 8, Category = "S", Text = "You rely on past experiences and proven methods to solve problems." },
+
+                // Thinking (T) vs Feeling (F)
+                new Question { Id = 9, Category = "T", Text = "You prioritize objective logic and efficiency over emotional impact." },
+                new Question { Id = 10, Category = "F", Text = "You prioritize empathy, harmony, and how choices affect people's feelings." },
+                new Question { Id = 11, Category = "T", Text = "In discussions, truth and accuracy are more important than keeping people pleased." },
+                new Question { Id = 12, Category = "F", Text = "You often rely on your gut instinct and personal values when making choices." },
+
+                // Judging (J) vs Prospecting (P)
+                new Question { Id = 13, Category = "J", Text = "You like to keep a detailed schedule and prefer concrete plans." },
+                new Question { Id = 14, Category = "P", Text = "You prefer keeping your options open and acting spontaneously." },
+                new Question { Id = 15, Category = "J", Text = "You complete tasks well ahead of deadlines rather than at the last minute." },
+                new Question { Id = 16, Category = "P", Text = "You adapt quickly to unexpected changes and enjoy flexible workflows." }
             };
         }
 
@@ -30,6 +51,7 @@ namespace PersonalityTest.Controllers
             var model = new TestViewModel
             {
                 Questions = questions,
+                // Creates a list of 16 zeros matching the 16 questions
                 Answers = Enumerable.Repeat(0, questions.Count).ToList()
             };
 
@@ -39,17 +61,20 @@ namespace PersonalityTest.Controllers
         [HttpPost]
         public IActionResult Questions(TestViewModel model)
         {
-            int total = model.Answers.Sum();
+            // Simple scoring logic based on total score
+            int total = model.Answers != null ? model.Answers.Sum() : 0;
 
             PersonalityResult result;
 
-            if (total >= 6)
+            // Rating scale: 1 (Disagree) to 5 (Agree) per question across 16 questions
+            // Max score = 80, Min score = 16
+            if (total >= 48)
             {
                 result = new PersonalityResult
                 {
                     Type = "ENTJ",
                     Title = "Commander",
-                    Description = "Confident and strategic leader."
+                    Description = "Bold, imaginative, and strong-willed leaders, always finding a way – or making one."
                 };
             }
             else
@@ -58,7 +83,7 @@ namespace PersonalityTest.Controllers
                 {
                     Type = "INFP",
                     Title = "Mediator",
-                    Description = "Creative and thoughtful."
+                    Description = "Poetic, kind, and altruistic people, always eager to help a good cause."
                 };
             }
 
