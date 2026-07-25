@@ -86,7 +86,7 @@ namespace PersonalityTest.Controllers
 
             var json = HttpContext.Session.GetString("LastResult");
             if (string.IsNullOrEmpty(json))
-                return RedirectToAction("Instructions"); // hasn't taken the test yet
+                return View("NoResult"); // hasn't taken the test yet
 
             var result = JsonSerializer.Deserialize<PersonalityResult>(json);
             return View("Result", result);
